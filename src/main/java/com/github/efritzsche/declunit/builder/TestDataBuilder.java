@@ -1,5 +1,6 @@
 package com.github.efritzsche.declunit.builder;
 
+import java.util.List;
 import java.util.function.Function;
 
 import com.github.efritzsche.declunit.DeclTest;
@@ -7,11 +8,11 @@ import com.github.efritzsche.declunit.TestData;
 
 public class TestDataBuilder<T, R> {
 
-    private DeclTestBuilder rootBuilder;
+    private TestBuilder rootBuilder;
     private TestData<T, R> data;
 
 
-    TestDataBuilder(DeclTestBuilder rootBuilder, String description) {
+    TestDataBuilder(TestBuilder rootBuilder, String description) {
         if (description == null)
             throw new NullPointerException("description");
         if (description.isEmpty())
@@ -43,7 +44,8 @@ public class TestDataBuilder<T, R> {
         return rootBuilder.add(description);
     }
 
-    public DeclTest build() {
-        return rootBuilder.checkpoint(this);
+    public List<DeclTest> build() {
+        rootBuilder.checkpoint(this);
+        return rootBuilder.build();
     }
 }
