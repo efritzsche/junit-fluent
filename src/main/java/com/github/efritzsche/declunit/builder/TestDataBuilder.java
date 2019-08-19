@@ -30,11 +30,21 @@ public class TestDataBuilder<T, R> {
     }
 
     public TestDataBuilder<T, R> target(T target) {
+        if (target == null)
+            throw new NullPointerException("target");
+        if (data.getTarget() != null)
+            throw new IllegalStateException("target already set");
+
         data.setTarget(target);
         return this;
     }
 
     public TestDataExpectedBuilder<T, R> apply(Function<T, R> method) {
+        if (method == null)
+            throw new NullPointerException("method");
+        if (data.getMethod() != null)
+            throw new IllegalStateException("method already set");
+
         data.setMethod(method);
         return new TestDataExpectedBuilder<>(this);
     }

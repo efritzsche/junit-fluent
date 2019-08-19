@@ -21,6 +21,9 @@ public class TestDataExpectedBuilder<T, R> {
     }
 
     public TestDataBuilder<T, R> expectException(Class<? extends Throwable> expectedException) {
+        if (expectedException == null)
+            throw new NullPointerException("expectedException");
+
         builder.getData().setExpectedException(expectedException);
         return builder;
     }
