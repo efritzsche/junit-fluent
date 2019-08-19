@@ -24,4 +24,9 @@ public class DeclTest<T, R> implements Runnable {
             Assertions.assertEquals(data.getExpectedResult(), actualResult);
         }
     }
+
+    @Override
+    public String toString() {
+        return data.getDescription();
+    }
 }
