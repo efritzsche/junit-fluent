@@ -54,7 +54,7 @@ public class TestDataBuilder<T, R> {
         return rootBuilder.add(description);
     }
 
-    public List<DeclTest> build() {
+    public List<DeclTest<?, ?>> build() {
         rootBuilder.checkpoint(this);
         return rootBuilder.build();
     }
