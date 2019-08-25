@@ -8,7 +8,7 @@ import com.github.efritzsche.declunit.TestData;
 
 public class TestBuilder implements TestCreator {
 
-    private List<TestData> tests;
+    private final List<TestData> tests;
 
 
     public TestBuilder() {

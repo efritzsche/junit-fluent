@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 
 public class DeclTest implements Runnable {
 
-    private TestData data;
+    private final TestData data;
 
 
     public DeclTest(TestData data) {
