@@ -12,11 +12,11 @@ public class ConceptTest {
 
     public List<DeclTest> getTests() {
         return new TestBuilder()
-                .add("1 + 1 returns 2")
+                .newTest("1 + 1 returns 2")
                     .target(new SimpleMath())
                     .apply(math -> math.add(1, 1))
                     .expect(2)
-                .add("1 / 0 throws ArithmeticException")
+                .newTest("1 / 0 throws ArithmeticException")
                     .target(new SimpleMath())
                     .apply(math -> math.div(1, 0))
                     .expectException(ArithmeticException.class)

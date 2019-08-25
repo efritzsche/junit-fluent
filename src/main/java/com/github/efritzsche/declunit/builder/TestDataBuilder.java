@@ -11,7 +11,7 @@ public class TestDataBuilder implements
         TestDataTarget,
         TestDataMethod<Object>,
         TestDataExpected<Object>,
-        TestDataCreator {
+        TestCreator {
 
     private TestBuilder rootBuilder;
     private TestData data;
@@ -29,10 +29,6 @@ public class TestDataBuilder implements
         this.rootBuilder = rootBuilder;
     }
 
-
-    TestData getData() {
-        return data;
-    }
 
     @Override
     @SuppressWarnings("unchecked")
@@ -64,13 +60,13 @@ public class TestDataBuilder implements
     }
 
     @Override
-    public TestDataCreator expect(Object expectedResult) {
+    public TestCreator expect(Object expectedResult) {
         data.setExpectedResult(expectedResult);
         return this;
     }
 
     @Override
-    public TestDataCreator expectException(Class<? extends Throwable> expectedException) {
+    public TestCreator expectException(Class<? extends Throwable> expectedException) {
         if (expectedException == null)
             throw new NullPointerException("expectedException");
 
@@ -79,14 +75,14 @@ public class TestDataBuilder implements
     }
 
     @Override
-    public TestDataTarget add(String description) {
-        rootBuilder.checkpoint(this);
-        return rootBuilder.add(description);
+    public TestDataTarget newTest(String description) {
+        rootBuilder.addTest(data);
+        return rootBuilder.newTest(description);
     }
 
     @Override
     public List<DeclTest> build() {
-        rootBuilder.checkpoint(this);
+        rootBuilder.addTest(data);
         return rootBuilder.build();
     }
 }

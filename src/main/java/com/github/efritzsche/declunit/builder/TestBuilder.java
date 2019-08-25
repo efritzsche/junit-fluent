@@ -6,7 +6,7 @@ import java.util.List;
 import com.github.efritzsche.declunit.DeclTest;
 import com.github.efritzsche.declunit.TestData;
 
-public class TestBuilder {
+public class TestBuilder implements TestCreator {
 
     private List<TestData> tests;
 
@@ -16,19 +16,21 @@ public class TestBuilder {
     }
 
 
-    void checkpoint(TestDataBuilder builder) {
-        tests.add(builder.getData());
+    void addTest(TestData data) {
+        tests.add(data);
     }
 
-    List<DeclTest> build() {
+    @Override
+    public TestDataTarget newTest(String description) {
+        return new TestDataBuilder(this, description);
+    }
+
+    @Override
+    public List<DeclTest> build() {
         List<DeclTest> declTests = new ArrayList<>(tests.size());
 
         for (TestData test : tests) declTests.add(new DeclTest(test));
 
         return declTests;
-    }
-
-    public TestDataTarget add(String description) {
-        return new TestDataBuilder(this, description);
     }
 }
