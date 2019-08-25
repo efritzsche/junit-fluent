@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import com.github.efritzsche.declunit.DeclTest;
 import com.github.efritzsche.declunit.TestData;
+import org.junit.jupiter.api.DynamicTest;
 
 public class TestDataBuilder implements
         TestDataTarget,
@@ -81,7 +81,7 @@ public class TestDataBuilder implements
     }
 
     @Override
-    public List<DeclTest> build() {
+    public List<DynamicTest> build() {
         rootBuilder.addTest(data);
         return rootBuilder.build();
     }

@@ -3,8 +3,9 @@ package com.github.efritzsche.declunit.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.efritzsche.declunit.DeclTest;
+import com.github.efritzsche.declunit.TestCase;
 import com.github.efritzsche.declunit.TestData;
+import org.junit.jupiter.api.DynamicTest;
 
 public class TestBuilder implements TestCreator {
 
@@ -26,11 +27,13 @@ public class TestBuilder implements TestCreator {
     }
 
     @Override
-    public List<DeclTest> build() {
-        List<DeclTest> declTests = new ArrayList<>(tests.size());
+    public List<DynamicTest> build() {
+        List<DynamicTest> testCases = new ArrayList<>(tests.size());
 
-        for (TestData test : tests) declTests.add(new DeclTest(test));
+        for (TestData test : tests) {
+            testCases.add(DynamicTest.dynamicTest(test.getDescription(), new TestCase(test)));
+        }
 
-        return declTests;
+        return testCases;
     }
 }

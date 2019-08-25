@@ -3,14 +3,15 @@ package com.github.efritzsche.declunit;
 import java.util.List;
 
 import com.github.efritzsche.declunit.builder.TestBuilder;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.MethodSource;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ConceptTest {
 
-    public List<DeclTest> getTests() {
+    @TestFactory
+    public List<DynamicTest> testSimpleMath() {
         return new TestBuilder()
                 .newTest("1 + 1 returns 2")
                     .target(new SimpleMath())
@@ -21,12 +22,6 @@ public class ConceptTest {
                     .apply(math -> math.div(1, 0))
                     .expectException(ArithmeticException.class)
                 .build();
-    }
-
-    @MethodSource("getTests")
-    @ParameterizedTest
-    public void test(DeclTest test) {
-        test.run();
     }
 
 

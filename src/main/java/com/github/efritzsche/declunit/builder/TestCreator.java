@@ -2,11 +2,11 @@ package com.github.efritzsche.declunit.builder;
 
 import java.util.List;
 
-import com.github.efritzsche.declunit.DeclTest;
+import org.junit.jupiter.api.DynamicTest;
 
 public interface TestCreator {
 
     TestDataTarget newTest(String description);
 
-    List<DeclTest> build();
+    List<DynamicTest> build();
 }

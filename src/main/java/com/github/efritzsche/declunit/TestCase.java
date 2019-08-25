@@ -1,19 +1,20 @@
 package com.github.efritzsche.declunit;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.function.Executable;
 
-public class DeclTest implements Runnable {
+public class TestCase implements Executable {
 
     private final TestData data;
 
 
-    public DeclTest(TestData data) {
+    public TestCase(TestData data) {
         this.data = data;
     }
 
 
     @Override
-    public void run() {
+    public void execute() {
         if (data.getExpectedException() != null) {
             Assertions.assertThrows(
                     data.getExpectedException(),
