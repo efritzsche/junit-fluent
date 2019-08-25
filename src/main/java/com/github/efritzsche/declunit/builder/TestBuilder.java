@@ -28,7 +28,7 @@ public class TestBuilder {
         return declTests;
     }
 
-    public <T> TestDataBuilder<T, Object> add(String description) {
+    public <T> TestDataTarget<T, Object> add(String description) {
         return new TestDataBuilder<>(this, description);
     }
 }
