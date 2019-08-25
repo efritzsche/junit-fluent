@@ -2,12 +2,12 @@ package com.github.efritzsche.declunit;
 
 import java.util.function.Function;
 
-public class TestData<T, R> {
+public class TestData {
 
     private String description;
-    private T target;
-    private Function<T, R> method;
-    private R expectedResult;
+    private Object target;
+    private Function<Object, Object> method;
+    private Object expectedResult;
     private Class<? extends Throwable> expectedException;
 
 
@@ -22,27 +22,27 @@ public class TestData<T, R> {
         this.description = description;
     }
 
-    public T getTarget() {
+    public Object getTarget() {
         return target;
     }
 
-    public void setTarget(T target) {
+    public void setTarget(Object target) {
         this.target = target;
     }
 
-    public Function<T, R> getMethod() {
+    public Function<Object, Object> getMethod() {
         return method;
     }
 
-    public void setMethod(Function<T, R> method) {
+    public void setMethod(Function<Object, Object> method) {
         this.method = method;
     }
 
-    public R getExpectedResult() {
+    public Object getExpectedResult() {
         return expectedResult;
     }
 
-    public void setExpectedResult(R expectedResult) {
+    public void setExpectedResult(Object expectedResult) {
         this.expectedResult = expectedResult;
     }
 

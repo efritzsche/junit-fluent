@@ -2,9 +2,9 @@ package com.github.efritzsche.declunit;
 
 import org.junit.jupiter.api.Assertions;
 
-public class DeclTest<T, R> implements Runnable {
+public class DeclTest implements Runnable {
 
-    private TestData<T, R> data;
+    private TestData data;
 
 
     public DeclTest(TestData data) {
@@ -20,7 +20,7 @@ public class DeclTest<T, R> implements Runnable {
                     () -> data.getMethod().apply(data.getTarget())
             );
         } else {
-            R actualResult = data.getMethod().apply(data.getTarget());
+            Object actualResult = data.getMethod().apply(data.getTarget());
             Assertions.assertEquals(data.getExpectedResult(), actualResult);
         }
     }

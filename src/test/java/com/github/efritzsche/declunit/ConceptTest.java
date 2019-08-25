@@ -10,13 +10,13 @@ import org.junit.jupiter.params.provider.MethodSource;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ConceptTest {
 
-    public List<DeclTest<?, ?>> getTests() {
+    public List<DeclTest> getTests() {
         return new TestBuilder()
-                .<SimpleMath>add("1 + 1 returns 2")
+                .add("1 + 1 returns 2")
                     .target(new SimpleMath())
                     .apply(math -> math.add(1, 1))
                     .expect(2)
-                .<SimpleMath>add("1 / 0 throws ArithmeticException")
+                .add("1 / 0 throws ArithmeticException")
                     .target(new SimpleMath())
                     .apply(math -> math.div(1, 0))
                     .expectException(ArithmeticException.class)

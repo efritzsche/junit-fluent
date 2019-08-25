@@ -1,6 +1,6 @@
 package com.github.efritzsche.declunit.builder;
 
-public interface TestDataExpected<T, R> extends TestDataExpectedVoid<T, R> {
+public interface TestDataExpected<R> extends TestDataExpectedVoid {
 
-    TestDataCreator<T, R> expect(R expectedResult);
+    TestDataCreator expect(R expectedResult);
 }

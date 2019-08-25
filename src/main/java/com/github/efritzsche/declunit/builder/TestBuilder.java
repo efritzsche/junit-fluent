@@ -8,7 +8,7 @@ import com.github.efritzsche.declunit.TestData;
 
 public class TestBuilder {
 
-    private List<TestData<?, ?>> tests;
+    private List<TestData> tests;
 
 
     public TestBuilder() {
@@ -16,19 +16,19 @@ public class TestBuilder {
     }
 
 
-    void checkpoint(TestDataBuilder<?, ?> builder) {
+    void checkpoint(TestDataBuilder builder) {
         tests.add(builder.getData());
     }
 
-    List<DeclTest<?, ?>> build() {
-        List<DeclTest<?, ?>> declTests = new ArrayList<>(tests.size());
+    List<DeclTest> build() {
+        List<DeclTest> declTests = new ArrayList<>(tests.size());
 
-        for (TestData<?, ?> test : tests) declTests.add(new DeclTest<>(test));
+        for (TestData test : tests) declTests.add(new DeclTest(test));
 
         return declTests;
     }
 
-    public <T> TestDataTarget<T, Object> add(String description) {
-        return new TestDataBuilder<>(this, description);
+    public TestDataTarget add(String description) {
+        return new TestDataBuilder(this, description);
     }
 }

@@ -4,9 +4,9 @@ import java.util.List;
 
 import com.github.efritzsche.declunit.DeclTest;
 
-public interface TestDataCreator<T, R> {
+public interface TestDataCreator {
 
-    <NT> TestDataTarget<NT, Object> add(String description);
+    TestDataTarget add(String description);
 
-    List<DeclTest<?, ?>> build();
+    List<DeclTest> build();
 }

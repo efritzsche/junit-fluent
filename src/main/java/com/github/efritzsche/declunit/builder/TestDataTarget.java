@@ -1,6 +1,6 @@
 package com.github.efritzsche.declunit.builder;
 
-public interface TestDataTarget<T, R> {
+public interface TestDataTarget {
 
-    TestDataMethod<T, R> target(T target);
+    <T> TestDataMethod<T> target(T target);
 }

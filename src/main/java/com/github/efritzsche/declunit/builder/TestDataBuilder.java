@@ -7,14 +7,14 @@ import java.util.function.Function;
 import com.github.efritzsche.declunit.DeclTest;
 import com.github.efritzsche.declunit.TestData;
 
-public class TestDataBuilder<T, R> implements
-        TestDataTarget<T, R>,
-        TestDataMethod<T, R>,
-        TestDataExpected<T, R>,
-        TestDataCreator<T, R> {
+public class TestDataBuilder implements
+        TestDataTarget,
+        TestDataMethod<Object>,
+        TestDataExpected<Object>,
+        TestDataCreator {
 
     private TestBuilder rootBuilder;
-    private TestData<T, R> data;
+    private TestData data;
 
 
     TestDataBuilder(TestBuilder rootBuilder, String description) {
@@ -23,37 +23,39 @@ public class TestDataBuilder<T, R> implements
         if (description.isEmpty())
             throw new IllegalArgumentException("description is empty");
 
-        data = new TestData<>();
+        data = new TestData();
         data.setDescription(description);
 
         this.rootBuilder = rootBuilder;
     }
 
 
-    TestData<T, R> getData() {
+    TestData getData() {
         return data;
     }
 
     @Override
-    public TestDataMethod<T, R> target(T target) {
+    @SuppressWarnings("unchecked")
+    public <T> TestDataMethod<T> target(T target) {
         if (target == null)
             throw new NullPointerException("target");
 
         data.setTarget(target);
-        return this;
+        return (TestDataMethod<T>) this;
     }
 
     @Override
-    public TestDataExpected<T, R> apply(Function<T, R> method) {
+    @SuppressWarnings("unchecked")
+    public <R> TestDataExpected<R> apply(Function<Object, R> method) {
         if (method == null)
             throw new NullPointerException("method");
 
-        data.setMethod(method);
-        return this;
+        data.setMethod((Function<Object, Object>) method);
+        return (TestDataExpected<R>) this;
     }
 
     @Override
-    public TestDataExpectedVoid<T, R> applyVoid(Consumer<T> method) {
+    public TestDataExpectedVoid applyVoid(Consumer<Object> method) {
         if (method == null)
             throw new NullPointerException("method");
 
@@ -62,13 +64,13 @@ public class TestDataBuilder<T, R> implements
     }
 
     @Override
-    public TestDataCreator<T, R> expect(R expectedResult) {
+    public TestDataCreator expect(Object expectedResult) {
         data.setExpectedResult(expectedResult);
         return this;
     }
 
     @Override
-    public TestDataCreator<T, R> expectException(Class<? extends Throwable> expectedException) {
+    public TestDataCreator expectException(Class<? extends Throwable> expectedException) {
         if (expectedException == null)
             throw new NullPointerException("expectedException");
 
@@ -77,13 +79,13 @@ public class TestDataBuilder<T, R> implements
     }
 
     @Override
-    public <NT> TestDataTarget<NT, Object> add(String description) {
+    public TestDataTarget add(String description) {
         rootBuilder.checkpoint(this);
         return rootBuilder.add(description);
     }
 
     @Override
-    public List<DeclTest<?, ?>> build() {
+    public List<DeclTest> build() {
         rootBuilder.checkpoint(this);
         return rootBuilder.build();
     }

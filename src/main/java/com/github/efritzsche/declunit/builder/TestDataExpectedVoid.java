@@ -1,6 +1,6 @@
 package com.github.efritzsche.declunit.builder;
 
-public interface TestDataExpectedVoid<T, R> {
+public interface TestDataExpectedVoid {
 
-    TestDataCreator<T, R> expectException(Class<? extends Throwable> expectedException);
+    TestDataCreator expectException(Class<? extends Throwable> expectedException);
 }

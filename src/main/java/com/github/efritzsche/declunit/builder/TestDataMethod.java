@@ -3,9 +3,9 @@ package com.github.efritzsche.declunit.builder;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public interface TestDataMethod<T, R> {
+public interface TestDataMethod<T> {
 
-    TestDataExpected<T, R> apply(Function<T, R> method);
+    <R> TestDataExpected<R> apply(Function<T, R> method);
 
-    TestDataExpectedVoid<T, R> applyVoid(Consumer<T> method);
+    TestDataExpectedVoid applyVoid(Consumer<T> method);
 }
