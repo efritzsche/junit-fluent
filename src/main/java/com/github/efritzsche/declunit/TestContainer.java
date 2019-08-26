@@ -7,6 +7,11 @@ import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DynamicTest;
 
+/**
+ * Container holding {@link DynamicTest dynamic tests} for JUnit 5.
+ *
+ * @see org.junit.jupiter.api.TestFactory TestFactory
+ */
 public class TestContainer implements Iterable<DynamicTest> {
 
     private final List<DynamicTest> dynamicTests;

@@ -5,6 +5,9 @@ import java.util.function.Function;
 
 import com.github.efritzsche.declunit.function.Method;
 
+/**
+ * Data model defining a dynamic test. Configured and build by {@link TestBuilder}.
+ */
 public class TestData {
 
     private String description;

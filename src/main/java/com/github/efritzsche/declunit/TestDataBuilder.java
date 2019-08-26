@@ -15,6 +15,11 @@ import com.github.efritzsche.declunit.function.StaticMethod;
 import com.github.efritzsche.declunit.function.StaticVoidMethod;
 import com.github.efritzsche.declunit.function.VoidMethod;
 
+/**
+ * Internal class implementing the fluent builder API.
+ *
+ * @see TestBuilder
+ */
 class TestDataBuilder implements
         TestDataTarget,
         TestDataArrangeTarget<Object>,
@@ -64,10 +69,7 @@ class TestDataBuilder implements
         if (arrangeTarget == null)
             throw new NullPointerException("arrangeTarget");
 
-        Function<Object, Object> current = data.getArrangeTarget();
-        data.setArrangeTarget(current != null
-                ? current.andThen(target -> {arrangeTarget.accept(target); return target;})
-                : target -> {arrangeTarget.accept(target); return target;});
+        data.setArrangeTarget(target -> {arrangeTarget.accept(target); return target;});
         return this;
     }
 
@@ -76,8 +78,7 @@ class TestDataBuilder implements
         if (arrangeTarget == null)
             throw new NullPointerException("arrangeTarget");
 
-        Function<Object, Object> current = data.getArrangeTarget();
-        data.setArrangeTarget(current != null ? current.andThen(arrangeTarget) : arrangeTarget);
+        data.setArrangeTarget(arrangeTarget);
         return this;
     }
 
