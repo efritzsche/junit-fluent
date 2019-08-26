@@ -25,10 +25,14 @@ public class TestCase implements Executable {
                     () -> data.getMethod().apply(target)
             );
         } else if (data.getAssertResult() != null) {
-            Object actualResult = data.getMethod().apply(target);
+            Object actualResult = Assertions.assertDoesNotThrow(
+                    () -> data.getMethod().apply(target)
+            );
             data.getAssertResult().accept(actualResult);
         } else {
-            Object actualResult = data.getMethod().apply(target);
+            Object actualResult = Assertions.assertDoesNotThrow(
+                    () -> data.getMethod().apply(target)
+            );
             Assertions.assertEquals(data.getExpectedResult(), actualResult);
         }
     }

@@ -3,12 +3,14 @@ package com.github.efritzsche.declunit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import com.github.efritzsche.declunit.function.Method;
+
 public class TestData {
 
     private String description;
     private Object target;
     private Function<Object, Object> arrangeTarget;
-    private Function<Object, Object> method;
+    private Method<Object, Object> method;
     private Class<? extends Throwable> expectedException;
     private Object expectedResult;
     private Consumer<Object> assertResult;
@@ -41,11 +43,11 @@ public class TestData {
         this.arrangeTarget = arrangeTarget;
     }
 
-    public Function<Object, Object> getMethod() {
+    public Method<Object, Object> getMethod() {
         return method;
     }
 
-    public void setMethod(Function<Object, Object> method) {
+    public void setMethod(Method<Object, Object> method) {
         this.method = method;
     }
 

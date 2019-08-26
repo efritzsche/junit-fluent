@@ -1,10 +1,11 @@
 package com.github.efritzsche.declunit.fluent;
 
-import java.util.function.Supplier;
+import com.github.efritzsche.declunit.function.StaticMethod;
+import com.github.efritzsche.declunit.function.StaticVoidMethod;
 
 public interface TestDataStaticMethod {
 
-    TestDataExpectedNoResult applyVoid(Runnable method);
+    TestDataExpectedNoResult applyVoid(StaticVoidMethod method);
 
-    <R> TestDataExpectedResult<R> apply(Supplier<R> method);
+    <R> TestDataExpectedResult<R> apply(StaticMethod<R> method);
 }
