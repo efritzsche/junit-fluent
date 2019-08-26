@@ -61,6 +61,9 @@ class TestDataBuilder implements
 
     @Override
     public TestDataMethod<Object> prepareTarget(Consumer<Object> arrangeTarget) {
+        if (arrangeTarget == null)
+            throw new NullPointerException("arrangeTarget");
+
         Function<Object, Object> current = data.getArrangeTarget();
         data.setArrangeTarget(current != null
                 ? current.andThen(target -> {arrangeTarget.accept(target); return target;})
@@ -70,6 +73,9 @@ class TestDataBuilder implements
 
     @Override
     public TestDataMethod<Object> replaceTarget(Function<Object, Object> arrangeTarget) {
+        if (arrangeTarget == null)
+            throw new NullPointerException("arrangeTarget");
+
         Function<Object, Object> current = data.getArrangeTarget();
         data.setArrangeTarget(current != null ? current.andThen(arrangeTarget) : arrangeTarget);
         return this;
@@ -136,6 +142,9 @@ class TestDataBuilder implements
 
     @Override
     public TestCreator expectSuccess(Consumer<Object> assertResult) {
+        if (assertResult == null)
+            throw new NullPointerException("assertResult");
+
         data.setAssertResult(assertResult);
         return this;
     }
