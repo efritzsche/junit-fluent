@@ -2,6 +2,7 @@ package com.github.efritzsche.declunit;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.TestInstance;
@@ -44,6 +45,13 @@ public class ConceptTest {
     @TestFactory
     public List<DynamicTest> testStateMath() {
         return new TestBuilder()
+                .newTest("construction")
+                    .target(StateMath.class)
+                    .apply(StateMath::new)
+                    .expectSuccess(math -> {
+                        Assertions.assertEquals(0, math.getA());
+                        Assertions.assertEquals(0, math.getB());
+                    })
                 .newTest("1 + 1 returns 2")
                     .target(new StateMath())
                     .prepareTarget(math -> {
@@ -71,8 +79,17 @@ public class ConceptTest {
 
         private int a, b;
 
+
+        public int getA() {
+            return a;
+        }
+
         public void setA(int a) {
             this.a = a;
+        }
+
+        public int getB() {
+            return b;
         }
 
         public void setB(int b) {
