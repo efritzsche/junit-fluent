@@ -16,11 +16,15 @@ public class ConceptTest {
                 .newTest("1 + 1 returns 2")
                     .target(new SimpleMath())
                     .apply(math -> math.add(1, 1))
-                    .expect(2)
+                    .expectSuccess(2)
+                .newTest("2 / 2 returns 1")
+                    .target(new SimpleMath())
+                    .apply(math -> math.div(2, 2))
+                    .expectSuccess(1)
                 .newTest("1 / 0 throws ArithmeticException")
                     .target(new SimpleMath())
                     .apply(math -> math.div(1, 0))
-                    .expectException(ArithmeticException.class)
+                    .expectFailure(ArithmeticException.class)
                 .build();
     }
 

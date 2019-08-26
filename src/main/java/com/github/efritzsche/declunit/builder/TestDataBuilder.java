@@ -10,7 +10,8 @@ import org.junit.jupiter.api.DynamicTest;
 public class TestDataBuilder implements
         TestDataTarget,
         TestDataMethod<Object>,
-        TestDataExpected<Object>,
+        TestDataExpectedNoResult,
+        TestDataExpectedResult<Object>,
         TestCreator {
 
     private TestBuilder rootBuilder;
@@ -41,17 +42,7 @@ public class TestDataBuilder implements
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public <R> TestDataExpected<R> apply(Function<Object, R> method) {
-        if (method == null)
-            throw new NullPointerException("method");
-
-        data.setMethod((Function<Object, Object>) method);
-        return (TestDataExpected<R>) this;
-    }
-
-    @Override
-    public TestDataExpectedVoid applyVoid(Consumer<Object> method) {
+    public TestDataExpectedNoResult applyVoid(Consumer<Object> method) {
         if (method == null)
             throw new NullPointerException("method");
 
@@ -60,17 +51,33 @@ public class TestDataBuilder implements
     }
 
     @Override
-    public TestCreator expect(Object expectedResult) {
-        data.setExpectedResult(expectedResult);
-        return this;
+    @SuppressWarnings("unchecked")
+    public <R> TestDataExpectedResult<R> apply(Function<Object, R> method) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod((Function<Object, Object>) method);
+        return (TestDataExpectedResult<R>) this;
     }
 
     @Override
-    public TestCreator expectException(Class<? extends Throwable> expectedException) {
+    public TestCreator expectFailure(Class<? extends Throwable> expectedException) {
         if (expectedException == null)
             throw new NullPointerException("expectedException");
 
         data.setExpectedException(expectedException);
+        return this;
+    }
+
+    @Override
+    public TestCreator expectSuccess() {
+        data.setExpectedResult(null);
+        return this;
+    }
+
+    @Override
+    public TestCreator expectSuccess(Object expectedResult) {
+        data.setExpectedResult(expectedResult);
         return this;
     }
 

@@ -5,7 +5,7 @@ import java.util.function.Function;
 
 public interface TestDataMethod<T> {
 
-    <R> TestDataExpected<R> apply(Function<T, R> method);
+    TestDataExpectedNoResult applyVoid(Consumer<T> method);
 
-    TestDataExpectedVoid applyVoid(Consumer<T> method);
+    <R> TestDataExpectedResult<R> apply(Function<T, R> method);
 }
