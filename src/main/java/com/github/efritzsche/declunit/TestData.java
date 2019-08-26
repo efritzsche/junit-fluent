@@ -1,5 +1,6 @@
 package com.github.efritzsche.declunit;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class TestData {
@@ -8,8 +9,9 @@ public class TestData {
     private Object target;
     private Function<Object, Object> arrangeTarget;
     private Function<Object, Object> method;
-    private Object expectedResult;
     private Class<? extends Throwable> expectedException;
+    private Object expectedResult;
+    private Consumer<Object> assertResult;
 
 
     public TestData() {}
@@ -47,6 +49,14 @@ public class TestData {
         this.method = method;
     }
 
+    public Class<? extends Throwable> getExpectedException() {
+        return expectedException;
+    }
+
+    public void setExpectedException(Class<? extends Throwable> expectedException) {
+        this.expectedException = expectedException;
+    }
+
     public Object getExpectedResult() {
         return expectedResult;
     }
@@ -55,11 +65,11 @@ public class TestData {
         this.expectedResult = expectedResult;
     }
 
-    public Class<? extends Throwable> getExpectedException() {
-        return expectedException;
+    public Consumer<Object> getAssertResult() {
+        return assertResult;
     }
 
-    public void setExpectedException(Class<? extends Throwable> expectedException) {
-        this.expectedException = expectedException;
+    public void setAssertResult(Consumer<Object> assertResult) {
+        this.assertResult = assertResult;
     }
 }

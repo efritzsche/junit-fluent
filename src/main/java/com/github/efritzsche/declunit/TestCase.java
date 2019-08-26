@@ -24,6 +24,9 @@ public class TestCase implements Executable {
                     data.getExpectedException(),
                     () -> data.getMethod().apply(target)
             );
+        } else if (data.getAssertResult() != null) {
+            Object actualResult = data.getMethod().apply(target);
+            data.getAssertResult().accept(actualResult);
         } else {
             Object actualResult = data.getMethod().apply(target);
             Assertions.assertEquals(data.getExpectedResult(), actualResult);

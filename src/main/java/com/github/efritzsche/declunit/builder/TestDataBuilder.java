@@ -98,6 +98,12 @@ public class TestDataBuilder implements
     }
 
     @Override
+    public TestCreator expectSuccess(Consumer<Object> assertResult) {
+        data.setAssertResult(assertResult);
+        return this;
+    }
+
+    @Override
     public TestDataTarget newTest(String description) {
         rootBuilder.addTest(data);
         return rootBuilder.newTest(description);
