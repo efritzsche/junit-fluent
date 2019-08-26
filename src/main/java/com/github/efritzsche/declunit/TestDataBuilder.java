@@ -3,18 +3,21 @@ package com.github.efritzsche.declunit;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import com.github.efritzsche.declunit.fluent.TestCreator;
 import com.github.efritzsche.declunit.fluent.TestDataArrangeTarget;
 import com.github.efritzsche.declunit.fluent.TestDataExpectedNoResult;
 import com.github.efritzsche.declunit.fluent.TestDataExpectedResult;
 import com.github.efritzsche.declunit.fluent.TestDataMethod;
+import com.github.efritzsche.declunit.fluent.TestDataStaticMethod;
 import com.github.efritzsche.declunit.fluent.TestDataTarget;
 import org.junit.jupiter.api.DynamicTest;
 
 class TestDataBuilder implements
         TestDataTarget,
         TestDataArrangeTarget<Object>,
+        TestDataStaticMethod,
         TestDataExpectedNoResult,
         TestDataExpectedResult<Object>,
         TestCreator {
@@ -44,6 +47,15 @@ class TestDataBuilder implements
 
         data.setTarget(target);
         return (TestDataArrangeTarget<T>) this;
+    }
+
+    @Override
+    public <T> TestDataStaticMethod target(Class<T> targetClass) {
+        if (targetClass == null)
+            throw new NullPointerException("targetClass");
+
+        data.setTarget(targetClass);
+        return this;
     }
 
     @Override
@@ -78,6 +90,25 @@ class TestDataBuilder implements
             throw new NullPointerException("method");
 
         data.setMethod((Function<Object, Object>) method);
+        return (TestDataExpectedResult<R>) this;
+    }
+
+    @Override
+    public TestDataExpectedNoResult applyVoid(Runnable method) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> {method.run(); return null;});
+        return this;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <R> TestDataExpectedResult<R> apply(Supplier<R> method) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> method.get());
         return (TestDataExpectedResult<R>) this;
     }
 
@@ -118,5 +149,28 @@ class TestDataBuilder implements
     public List<DynamicTest> build() {
         rootBuilder.addTest(data);
         return rootBuilder.build();
+    }
+
+
+    private class TestDataStaticBuilder implements TestDataMethod<Class<?>> {
+
+        @Override
+        public TestDataExpectedNoResult applyVoid(Consumer<Class<?>> method) {
+            if (method == null)
+                throw new NullPointerException("method");
+
+            data.setMethod(target -> {method.accept((Class<?>) target); return null;});
+            return TestDataBuilder.this;
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public <R> TestDataExpectedResult<R> apply(Function<Class<?>, R> method) {
+            if (method == null)
+                throw new NullPointerException("method");
+
+            data.setMethod(target -> method.apply((Class<?>) target));
+            return (TestDataExpectedResult<R>) TestDataBuilder.this;
+        }
     }
 }

@@ -10,6 +10,20 @@ import org.junit.jupiter.api.TestInstance;
 public class ConceptTest {
 
     @TestFactory
+    public List<DynamicTest> testMath() {
+        return new TestBuilder()
+                .newTest("1 + 1 returns 2")
+                    .target(Math.class)
+                    .apply(() -> Math.addExact(1, 1))
+                    .expectSuccess(2)
+                .newTest("MAX_VALUE + 1 throws ArithmeticException")
+                    .target(Math.class)
+                    .apply(() -> Math.addExact(Integer.MAX_VALUE, 1))
+                    .expectFailure(ArithmeticException.class)
+                .build();
+    }
+
+    @TestFactory
     public List<DynamicTest> testSimpleMath() {
         return new TestBuilder()
                 .newTest("1 + 1 returns 2")
