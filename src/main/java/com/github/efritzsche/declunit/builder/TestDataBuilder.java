@@ -9,7 +9,7 @@ import org.junit.jupiter.api.DynamicTest;
 
 public class TestDataBuilder implements
         TestDataTarget,
-        TestDataMethod<Object>,
+        TestDataArrangeTarget<Object>,
         TestDataExpectedNoResult,
         TestDataExpectedResult<Object>,
         TestCreator {
@@ -33,12 +33,28 @@ public class TestDataBuilder implements
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> TestDataMethod<T> target(T target) {
+    public <T> TestDataArrangeTarget<T> target(T target) {
         if (target == null)
             throw new NullPointerException("target");
 
         data.setTarget(target);
-        return (TestDataMethod<T>) this;
+        return (TestDataArrangeTarget<T>) this;
+    }
+
+    @Override
+    public TestDataMethod<Object> prepareTarget(Consumer<Object> arrangeTarget) {
+        Function<Object, Object> current = data.getArrangeTarget();
+        data.setArrangeTarget(current != null
+                ? current.andThen(target -> {arrangeTarget.accept(target); return target;})
+                : target -> {arrangeTarget.accept(target); return target;});
+        return this;
+    }
+
+    @Override
+    public TestDataMethod<Object> replaceTarget(Function<Object, Object> arrangeTarget) {
+        Function<Object, Object> current = data.getArrangeTarget();
+        data.setArrangeTarget(current != null ? current.andThen(arrangeTarget) : arrangeTarget);
+        return this;
     }
 
     @Override

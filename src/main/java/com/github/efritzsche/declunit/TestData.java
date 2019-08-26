@@ -6,6 +6,7 @@ public class TestData {
 
     private String description;
     private Object target;
+    private Function<Object, Object> arrangeTarget;
     private Function<Object, Object> method;
     private Object expectedResult;
     private Class<? extends Throwable> expectedException;
@@ -28,6 +29,14 @@ public class TestData {
 
     public void setTarget(Object target) {
         this.target = target;
+    }
+
+    public Function<Object, Object> getArrangeTarget() {
+        return arrangeTarget;
+    }
+
+    public void setArrangeTarget(Function<Object, Object> arrangeTarget) {
+        this.arrangeTarget = arrangeTarget;
     }
 
     public Function<Object, Object> getMethod() {

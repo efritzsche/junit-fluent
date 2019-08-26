@@ -15,13 +15,17 @@ public class TestCase implements Executable {
 
     @Override
     public void execute() {
+        Object target = data.getArrangeTarget() != null
+                ? data.getArrangeTarget().apply(data.getTarget())
+                : data.getTarget();
+
         if (data.getExpectedException() != null) {
             Assertions.assertThrows(
                     data.getExpectedException(),
-                    () -> data.getMethod().apply(data.getTarget())
+                    () -> data.getMethod().apply(target)
             );
         } else {
-            Object actualResult = data.getMethod().apply(data.getTarget());
+            Object actualResult = data.getMethod().apply(target);
             Assertions.assertEquals(data.getExpectedResult(), actualResult);
         }
     }

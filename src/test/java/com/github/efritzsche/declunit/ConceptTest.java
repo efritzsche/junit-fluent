@@ -28,6 +28,20 @@ public class ConceptTest {
                 .build();
     }
 
+    @TestFactory
+    public List<DynamicTest> testStateMath() {
+        return new TestBuilder()
+                .newTest("1 + 1 returns 2")
+                    .target(new StateMath())
+                    .prepareTarget(math -> {
+                        math.setA(1);
+                        math.setB(1);
+                    })
+                    .apply(StateMath::add)
+                    .expectSuccess(2)
+                .build();
+    }
+
 
     public static class SimpleMath {
 
@@ -37,6 +51,23 @@ public class ConceptTest {
 
         public int div(int a, int b) {
             return a / b;
+        }
+    }
+
+    public static class StateMath {
+
+        private int a, b;
+
+        public void setA(int a) {
+            this.a = a;
+        }
+
+        public void setB(int b) {
+            this.b = b;
+        }
+
+        public int add() {
+            return a + b;
         }
     }
 }
