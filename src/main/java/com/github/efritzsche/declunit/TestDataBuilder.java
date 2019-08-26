@@ -1,6 +1,5 @@
 package com.github.efritzsche.declunit;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -15,7 +14,6 @@ import com.github.efritzsche.declunit.function.Method;
 import com.github.efritzsche.declunit.function.StaticMethod;
 import com.github.efritzsche.declunit.function.StaticVoidMethod;
 import com.github.efritzsche.declunit.function.VoidMethod;
-import org.junit.jupiter.api.DynamicTest;
 
 class TestDataBuilder implements
         TestDataTarget,
@@ -149,7 +147,7 @@ class TestDataBuilder implements
     }
 
     @Override
-    public List<DynamicTest> build() {
+    public TestContainer build() {
         rootBuilder.addTest(data);
         return rootBuilder.build();
     }

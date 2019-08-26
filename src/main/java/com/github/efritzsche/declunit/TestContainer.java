@@ -1,20 +1,34 @@
 package com.github.efritzsche.declunit;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.function.Executable;
+import org.junit.jupiter.api.DynamicTest;
 
-public class TestCase implements Executable {
+public class TestContainer implements Iterable<DynamicTest> {
 
-    private final TestData data;
+    private final List<DynamicTest> dynamicTests;
 
 
-    public TestCase(TestData data) {
-        this.data = data;
+    TestContainer(List<TestData> tests) {
+        dynamicTests = new ArrayList<>(tests.size());
+
+        for (TestData test : tests) {
+            dynamicTests.add(DynamicTest.dynamicTest(
+                    test.getDescription(),
+                    () -> executeTest(test)));
+        }
     }
 
 
     @Override
-    public void execute() {
+    public Iterator<DynamicTest> iterator() {
+        return dynamicTests.iterator();
+    }
+
+    private void executeTest(TestData data) {
         Object target = data.getArrangeTarget() != null
                 ? data.getArrangeTarget().apply(data.getTarget())
                 : data.getTarget();
@@ -35,10 +49,5 @@ public class TestCase implements Executable {
             );
             Assertions.assertEquals(data.getExpectedResult(), actualResult);
         }
-    }
-
-    @Override
-    public String toString() {
-        return data.getDescription();
     }
 }

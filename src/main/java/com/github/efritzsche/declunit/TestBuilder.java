@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.github.efritzsche.declunit.fluent.TestCreator;
 import com.github.efritzsche.declunit.fluent.TestDataTarget;
-import org.junit.jupiter.api.DynamicTest;
 
 public class TestBuilder implements TestCreator {
 
@@ -27,13 +26,7 @@ public class TestBuilder implements TestCreator {
     }
 
     @Override
-    public List<DynamicTest> build() {
-        List<DynamicTest> testCases = new ArrayList<>(tests.size());
-
-        for (TestData test : tests) {
-            testCases.add(DynamicTest.dynamicTest(test.getDescription(), new TestCase(test)));
-        }
-
-        return testCases;
+    public TestContainer build() {
+        return new TestContainer(tests);
     }
 }
