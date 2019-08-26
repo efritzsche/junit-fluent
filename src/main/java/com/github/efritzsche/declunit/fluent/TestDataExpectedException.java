@@ -1,4 +1,4 @@
-package com.github.efritzsche.declunit.builder;
+package com.github.efritzsche.declunit.fluent;
 
 public interface TestDataExpectedException {
 

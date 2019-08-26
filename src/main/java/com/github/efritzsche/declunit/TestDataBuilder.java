@@ -1,10 +1,15 @@
-package com.github.efritzsche.declunit.builder;
+package com.github.efritzsche.declunit;
 
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import com.github.efritzsche.declunit.TestData;
+import com.github.efritzsche.declunit.fluent.TestCreator;
+import com.github.efritzsche.declunit.fluent.TestDataArrangeTarget;
+import com.github.efritzsche.declunit.fluent.TestDataExpectedNoResult;
+import com.github.efritzsche.declunit.fluent.TestDataExpectedResult;
+import com.github.efritzsche.declunit.fluent.TestDataMethod;
+import com.github.efritzsche.declunit.fluent.TestDataTarget;
 import org.junit.jupiter.api.DynamicTest;
 
 public class TestDataBuilder implements

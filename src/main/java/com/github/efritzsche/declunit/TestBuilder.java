@@ -1,10 +1,10 @@
-package com.github.efritzsche.declunit.builder;
+package com.github.efritzsche.declunit;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.efritzsche.declunit.TestCase;
-import com.github.efritzsche.declunit.TestData;
+import com.github.efritzsche.declunit.fluent.TestCreator;
+import com.github.efritzsche.declunit.fluent.TestDataTarget;
 import org.junit.jupiter.api.DynamicTest;
 
 public class TestBuilder implements TestCreator {

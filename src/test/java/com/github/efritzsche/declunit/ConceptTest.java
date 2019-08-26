@@ -2,7 +2,6 @@ package com.github.efritzsche.declunit;
 
 import java.util.List;
 
-import com.github.efritzsche.declunit.builder.TestBuilder;
 import org.junit.jupiter.api.DynamicTest;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.TestInstance;
