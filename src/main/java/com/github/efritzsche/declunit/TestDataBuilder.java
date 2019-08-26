@@ -12,7 +12,7 @@ import com.github.efritzsche.declunit.fluent.TestDataMethod;
 import com.github.efritzsche.declunit.fluent.TestDataTarget;
 import org.junit.jupiter.api.DynamicTest;
 
-public class TestDataBuilder implements
+class TestDataBuilder implements
         TestDataTarget,
         TestDataArrangeTarget<Object>,
         TestDataExpectedNoResult,
