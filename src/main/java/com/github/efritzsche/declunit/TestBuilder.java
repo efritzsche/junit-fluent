@@ -3,15 +3,20 @@ package com.github.efritzsche.declunit;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.efritzsche.declunit.fluent.TestCreator;
 import com.github.efritzsche.declunit.fluent.TestDataTarget;
 
-public class TestBuilder implements TestCreator {
+public class TestBuilder {
+
+    public static TestDataTarget newTest(String description) {
+        TestBuilder rootBuilder = new TestBuilder();
+        return new TestDataBuilder(rootBuilder, description);
+    }
+
 
     private final List<TestData> tests;
 
 
-    public TestBuilder() {
+    private TestBuilder() {
         tests = new ArrayList<>();
     }
 
@@ -20,13 +25,7 @@ public class TestBuilder implements TestCreator {
         tests.add(data);
     }
 
-    @Override
-    public TestDataTarget newTest(String description) {
-        return new TestDataBuilder(this, description);
-    }
-
-    @Override
-    public TestContainer build() {
+    TestContainer buildAll() {
         return new TestContainer(tests);
     }
 }

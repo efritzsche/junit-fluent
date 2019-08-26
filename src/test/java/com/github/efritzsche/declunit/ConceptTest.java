@@ -9,7 +9,7 @@ public class ConceptTest {
 
     @TestFactory
     public TestContainer testMath() {
-        return new TestBuilder()
+        return TestBuilder
                 .newTest("1 + 1 returns 2")
                     .target(Math.class)
                     .apply(() -> Math.addExact(1, 1))
@@ -23,7 +23,7 @@ public class ConceptTest {
 
     @TestFactory
     public TestContainer testSimpleMath() {
-        return new TestBuilder()
+        return TestBuilder
                 .newTest("1 + 1 returns 2")
                     .target(new SimpleMath())
                     .apply(math -> math.add(1, 1))
@@ -41,7 +41,7 @@ public class ConceptTest {
 
     @TestFactory
     public TestContainer testStateMath() {
-        return new TestBuilder()
+        return TestBuilder
                 .newTest("construction")
                     .target(StateMath.class)
                     .apply(StateMath::new)

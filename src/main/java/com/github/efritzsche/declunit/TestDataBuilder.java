@@ -152,12 +152,12 @@ class TestDataBuilder implements
     @Override
     public TestDataTarget newTest(String description) {
         rootBuilder.addTest(data);
-        return rootBuilder.newTest(description);
+        return new TestDataBuilder(rootBuilder, description);
     }
 
     @Override
     public TestContainer build() {
         rootBuilder.addTest(data);
-        return rootBuilder.build();
+        return rootBuilder.buildAll();
     }
 }
