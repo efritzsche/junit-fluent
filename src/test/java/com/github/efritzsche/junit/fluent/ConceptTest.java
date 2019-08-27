@@ -1,13 +1,16 @@
 package com.github.efritzsche.junit.fluent;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.TestInstance;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@DisplayName("Showcase of API concept")
 public class ConceptTest {
 
     @TestFactory
+    @DisplayName("Tests for static methods of standard Math class")
     public TestContainer testMath() {
         return TestBuilder
                 .newTest("1 + 1 returns 2")
@@ -22,6 +25,7 @@ public class ConceptTest {
     }
 
     @TestFactory
+    @DisplayName("Tests for member methods of SimpleMath class")
     public TestContainer testSimpleMath() {
         return TestBuilder
                 .newTest("1 + 1 returns 2")
@@ -40,9 +44,10 @@ public class ConceptTest {
     }
 
     @TestFactory
+    @DisplayName("Tests for configuration of StateMath class")
     public TestContainer testStateMath() {
         return TestBuilder
-                .newTest("construction")
+                .newTest("Construction of new instance")
                     .target(StateMath.class)
                     .apply(StateMath::new)
                     .expectSuccess(math -> {
