@@ -1,7 +1,7 @@
-package com.github.efritzsche.declunit.fluent;
+package com.github.efritzsche.junit.fluent.api;
 
-import com.github.efritzsche.declunit.function.StaticMethod;
-import com.github.efritzsche.declunit.function.StaticVoidMethod;
+import com.github.efritzsche.junit.fluent.method.StaticMethod;
+import com.github.efritzsche.junit.fluent.method.StaticVoidMethod;
 
 public interface TestDataStaticMethod {
 

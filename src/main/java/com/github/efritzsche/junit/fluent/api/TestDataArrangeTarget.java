@@ -1,4 +1,4 @@
-package com.github.efritzsche.declunit.fluent;
+package com.github.efritzsche.junit.fluent.api;
 
 import java.util.function.Consumer;
 import java.util.function.Function;

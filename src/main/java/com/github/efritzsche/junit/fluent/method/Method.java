@@ -1,4 +1,4 @@
-package com.github.efritzsche.declunit.function;
+package com.github.efritzsche.junit.fluent.method;
 
 /**
  * Equivalent to {@link java.util.function.Function Function} that can throw exceptions.

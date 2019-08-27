@@ -1,9 +1,9 @@
-package com.github.efritzsche.declunit;
+package com.github.efritzsche.junit.fluent;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import com.github.efritzsche.declunit.function.Method;
+import com.github.efritzsche.junit.fluent.method.Method;
 
 /**
  * Data model defining a dynamic test. Configured and build by {@link TestBuilder}.

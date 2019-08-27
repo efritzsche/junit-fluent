@@ -1,6 +1,6 @@
-package com.github.efritzsche.declunit.fluent;
+package com.github.efritzsche.junit.fluent.api;
 
-import com.github.efritzsche.declunit.TestContainer;
+import com.github.efritzsche.junit.fluent.TestContainer;
 
 public interface TestCreator {
 

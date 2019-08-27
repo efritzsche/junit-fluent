@@ -1,4 +1,4 @@
-package com.github.efritzsche.declunit.fluent;
+package com.github.efritzsche.junit.fluent.api;
 
 public interface TestDataTarget {
 

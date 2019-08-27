@@ -1,7 +1,7 @@
-package com.github.efritzsche.declunit.fluent;
+package com.github.efritzsche.junit.fluent.api;
 
-import com.github.efritzsche.declunit.function.Method;
-import com.github.efritzsche.declunit.function.VoidMethod;
+import com.github.efritzsche.junit.fluent.method.Method;
+import com.github.efritzsche.junit.fluent.method.VoidMethod;
 
 public interface TestDataMethod<T> {
 

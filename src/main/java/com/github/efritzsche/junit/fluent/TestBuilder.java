@@ -1,9 +1,9 @@
-package com.github.efritzsche.declunit;
+package com.github.efritzsche.junit.fluent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.efritzsche.declunit.fluent.TestDataTarget;
+import com.github.efritzsche.junit.fluent.api.TestDataTarget;
 
 /**
  * Entry point for fluent test building. Use {@link #newTest(String)} to start building tests.

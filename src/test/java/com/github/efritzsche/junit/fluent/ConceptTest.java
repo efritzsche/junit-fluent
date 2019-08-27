@@ -1,4 +1,4 @@
-package com.github.efritzsche.declunit;
+package com.github.efritzsche.junit.fluent;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.TestFactory;

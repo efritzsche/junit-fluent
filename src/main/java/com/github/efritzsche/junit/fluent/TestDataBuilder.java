@@ -1,19 +1,19 @@
-package com.github.efritzsche.declunit;
+package com.github.efritzsche.junit.fluent;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import com.github.efritzsche.declunit.fluent.TestCreator;
-import com.github.efritzsche.declunit.fluent.TestDataArrangeTarget;
-import com.github.efritzsche.declunit.fluent.TestDataExpectedNoResult;
-import com.github.efritzsche.declunit.fluent.TestDataExpectedResult;
-import com.github.efritzsche.declunit.fluent.TestDataMethod;
-import com.github.efritzsche.declunit.fluent.TestDataStaticMethod;
-import com.github.efritzsche.declunit.fluent.TestDataTarget;
-import com.github.efritzsche.declunit.function.Method;
-import com.github.efritzsche.declunit.function.StaticMethod;
-import com.github.efritzsche.declunit.function.StaticVoidMethod;
-import com.github.efritzsche.declunit.function.VoidMethod;
+import com.github.efritzsche.junit.fluent.api.TestCreator;
+import com.github.efritzsche.junit.fluent.api.TestDataArrangeTarget;
+import com.github.efritzsche.junit.fluent.api.TestDataExpectedNoResult;
+import com.github.efritzsche.junit.fluent.api.TestDataExpectedResult;
+import com.github.efritzsche.junit.fluent.api.TestDataMethod;
+import com.github.efritzsche.junit.fluent.api.TestDataStaticMethod;
+import com.github.efritzsche.junit.fluent.api.TestDataTarget;
+import com.github.efritzsche.junit.fluent.method.Method;
+import com.github.efritzsche.junit.fluent.method.StaticMethod;
+import com.github.efritzsche.junit.fluent.method.StaticVoidMethod;
+import com.github.efritzsche.junit.fluent.method.VoidMethod;
 
 /**
  * Internal class implementing the fluent builder API.

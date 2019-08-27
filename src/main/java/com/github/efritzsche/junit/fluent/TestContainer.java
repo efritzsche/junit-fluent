@@ -1,4 +1,4 @@
-package com.github.efritzsche.declunit;
+package com.github.efritzsche.junit.fluent;
 
 import java.util.ArrayList;
 import java.util.Iterator;
