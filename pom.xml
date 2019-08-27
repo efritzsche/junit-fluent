@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.efritzsche</groupId>
-    <artifactId>decl-unit</artifactId>
+    <artifactId>junit-fluent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Decl-Unit</name>
-    <!--<description>TODO</description>-->
+    <name>JUnit Jupiter Fluent Tests</name>
+    <description>Fluent test builder for the JUnit Jupiter framework.</description>
 
     <licenses>
         <license>
