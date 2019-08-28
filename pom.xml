@@ -11,6 +11,7 @@
 
     <name>JUnit Jupiter Fluent Tests</name>
     <description>Fluent test builder for the JUnit Jupiter framework.</description>
+    <url>https://github.com/efritzsche/junit-fluent</url>
 
     <licenses>
         <license>
@@ -19,6 +20,14 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <name>Erik Fritzsche</name>
+            <email>git.efritzsche@gmail.com</email>
+            <url>https://github.com/efritzsche</url>
+        </developer>
+    </developers>
 
     <properties>
         <java.version>1.8</java.version>
@@ -102,4 +111,10 @@
             </build>
         </profile>
     </profiles>
+
+    <scm>
+        <connection>scm:git:git://github.com/efritzsche/junit-fluent.git</connection>
+        <developerConnection>scm:git:ssh://github.com:efritzsche/junit-fluent.git</developerConnection>
+        <url>http://github.com/efritzsche/junit-fluent/tree/master</url>
+    </scm>
 </project>
