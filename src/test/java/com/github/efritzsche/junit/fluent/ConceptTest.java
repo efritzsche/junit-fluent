@@ -15,11 +15,11 @@ public class ConceptTest {
         return TestBuilder
                 .newTest("1 + 1 returns 2")
                     .target(Math.class)
-                    .apply(() -> Math.addExact(1, 1))
+                    .apply(Math::addExact, 1, 1)
                     .expectSuccess(2)
                 .newTest("MAX_VALUE + 1 throws ArithmeticException")
                     .target(Math.class)
-                    .apply(() -> Math.addExact(Integer.MAX_VALUE, 1))
+                    .apply(Math::addExact, Integer.MAX_VALUE, 1)
                     .expectFailure(ArithmeticException.class)
                 .build();
     }
@@ -30,15 +30,15 @@ public class ConceptTest {
         return TestBuilder
                 .newTest("1 + 1 returns 2")
                     .target(new SimpleMath())
-                    .apply(math -> math.add(1, 1))
+                    .apply(SimpleMath::add, 1, 1)
                     .expectSuccess(2)
                 .newTest("2 / 2 returns 1")
                     .target(new SimpleMath())
-                    .apply(math -> math.div(2, 2))
+                    .apply(SimpleMath::div, 2, 2)
                     .expectSuccess(1)
                 .newTest("1 / 0 throws ArithmeticException")
                     .target(new SimpleMath())
-                    .apply(math -> math.div(1, 0))
+                    .apply(SimpleMath::div, 1, 0)
                     .expectFailure(ArithmeticException.class)
                 .build();
     }

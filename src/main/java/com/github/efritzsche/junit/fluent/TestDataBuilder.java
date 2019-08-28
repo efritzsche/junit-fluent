@@ -11,9 +11,21 @@ import com.github.efritzsche.junit.fluent.api.TestDataMethod;
 import com.github.efritzsche.junit.fluent.api.TestDataStaticMethod;
 import com.github.efritzsche.junit.fluent.api.TestDataTarget;
 import com.github.efritzsche.junit.fluent.method.Method;
+import com.github.efritzsche.junit.fluent.method.Method.Method1;
+import com.github.efritzsche.junit.fluent.method.Method.Method2;
+import com.github.efritzsche.junit.fluent.method.Method.Method3;
 import com.github.efritzsche.junit.fluent.method.StaticMethod;
+import com.github.efritzsche.junit.fluent.method.StaticMethod.StaticMethod1;
+import com.github.efritzsche.junit.fluent.method.StaticMethod.StaticMethod2;
+import com.github.efritzsche.junit.fluent.method.StaticMethod.StaticMethod3;
 import com.github.efritzsche.junit.fluent.method.StaticVoidMethod;
+import com.github.efritzsche.junit.fluent.method.StaticVoidMethod.StaticVoidMethod1;
+import com.github.efritzsche.junit.fluent.method.StaticVoidMethod.StaticVoidMethod2;
+import com.github.efritzsche.junit.fluent.method.StaticVoidMethod.StaticVoidMethod3;
 import com.github.efritzsche.junit.fluent.method.VoidMethod;
+import com.github.efritzsche.junit.fluent.method.VoidMethod.VoidMethod1;
+import com.github.efritzsche.junit.fluent.method.VoidMethod.VoidMethod2;
+import com.github.efritzsche.junit.fluent.method.VoidMethod.VoidMethod3;
 
 /**
  * Internal class implementing the fluent builder API.
@@ -160,5 +172,127 @@ class TestDataBuilder implements
     public TestContainer build() {
         rootBuilder.addTest(data);
         return rootBuilder.buildAll();
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <R, A0> TestDataExpectedResult<R> apply(Method1<Object, R, A0> method, A0 arg0) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> method.apply(target, arg0));
+        return (TestDataExpectedResult<R>) this;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <R, A0, A1> TestDataExpectedResult<R> apply(
+            Method2<Object, R, A0, A1> method, A0 arg0, A1 arg1) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> method.apply(target, arg0, arg1));
+        return (TestDataExpectedResult<R>) this;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <R, A0, A1, A2> TestDataExpectedResult<R> apply(
+            Method3<Object, R, A0, A1, A2> method, A0 arg0, A1 arg1, A2 arg2) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> method.apply(target, arg0, arg1, arg2));
+        return (TestDataExpectedResult<R>) this;
+    }
+
+    @Override
+    public <A0> TestDataExpectedNoResult applyVoid(VoidMethod1<Object, A0> method, A0 arg0) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> {method.apply(target, arg0); return null;});
+        return this;
+    }
+
+    @Override
+    public <A0, A1> TestDataExpectedNoResult applyVoid(
+            VoidMethod2<Object, A0, A1> method, A0 arg0, A1 arg1) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> {method.apply(target, arg0, arg1); return null;});
+        return this;
+    }
+
+    @Override
+    public <A0, A1, A2> TestDataExpectedNoResult applyVoid(
+            VoidMethod3<Object, A0, A1, A2> method, A0 arg0, A1 arg1, A2 arg2) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> {method.apply(target, arg0, arg1, arg2); return null;});
+        return this;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <R, A0> TestDataExpectedResult<R> apply(StaticMethod1<R, A0> method, A0 arg0) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> method.apply(arg0));
+        return (TestDataExpectedResult<R>) this;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <R, A0, A1> TestDataExpectedResult<R> apply(
+            StaticMethod2<R, A0, A1> method, A0 arg0, A1 arg1) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> method.apply(arg0, arg1));
+        return (TestDataExpectedResult<R>) this;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <R, A0, A1, A2> TestDataExpectedResult<R> apply(
+            StaticMethod3<R, A0, A1, A2> method, A0 arg0, A1 arg1, A2 arg2) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> method.apply(arg0, arg1, arg2));
+        return (TestDataExpectedResult<R>) this;
+    }
+
+    @Override
+    public <A0> TestDataExpectedNoResult applyVoid(StaticVoidMethod1<A0> method, A0 arg0) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> {method.apply(arg0); return null;});
+        return this;
+    }
+
+    @Override
+    public <A0, A1> TestDataExpectedNoResult applyVoid(
+            StaticVoidMethod2<A0, A1> method, A0 arg0, A1 arg1) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> {method.apply(arg0, arg1); return null;});
+        return this;
+    }
+
+    @Override
+    public <A0, A1, A2> TestDataExpectedNoResult applyVoid(
+            StaticVoidMethod3<A0, A1, A2> method, A0 arg0, A1 arg1, A2 arg2) {
+        if (method == null)
+            throw new NullPointerException("method");
+
+        data.setMethod(target -> {method.apply(arg0, arg1, arg2); return null;});
+        return this;
     }
 }
