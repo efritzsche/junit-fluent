@@ -35,8 +35,8 @@ public class TestContainer implements Iterable<DynamicTest> {
 
     private void executeTest(TestData data) {
         Object target = data.getTargetTransform() != null
-                ? data.getTargetTransform().apply(data.getTarget())
-                : data.getTarget();
+                ? data.getTargetTransform().apply(data.getTargetSupplier().get())
+                : data.getTargetSupplier().get();
 
         if (data.getExpectedException() != null) {
             Assertions.assertThrows(

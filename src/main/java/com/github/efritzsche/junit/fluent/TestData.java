@@ -2,6 +2,7 @@ package com.github.efritzsche.junit.fluent;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import com.github.efritzsche.junit.fluent.method.Method;
 
@@ -11,7 +12,7 @@ import com.github.efritzsche.junit.fluent.method.Method;
 public class TestData {
 
     private String description;
-    private Object target;
+    private Supplier<Object> targetSupplier;
     private Function<Object, Object> targetTransform;
     private Method<Object, Object> method;
     private Class<? extends Throwable> expectedException;
@@ -30,12 +31,12 @@ public class TestData {
         this.description = description;
     }
 
-    public Object getTarget() {
-        return target;
+    public Supplier<Object> getTargetSupplier() {
+        return targetSupplier;
     }
 
-    public void setTarget(Object target) {
-        this.target = target;
+    public void setTargetSupplier(Supplier<Object> targetSupplier) {
+        this.targetSupplier = targetSupplier;
     }
 
     public Function<Object, Object> getTargetTransform() {

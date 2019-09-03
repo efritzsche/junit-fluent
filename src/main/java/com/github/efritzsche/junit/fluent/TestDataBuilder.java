@@ -63,7 +63,7 @@ class TestDataBuilder implements
         if (target == null)
             throw new NullPointerException("target");
 
-        data.setTarget(target);
+        data.setTargetSupplier(() -> target);
         return (TestDataMethodOrOptionalTargetSetup<T>) this;
     }
 
@@ -72,7 +72,7 @@ class TestDataBuilder implements
         if (targetClass == null)
             throw new NullPointerException("targetClass");
 
-        data.setTarget(targetClass);
+        data.setTargetSupplier(() -> targetClass);
         return this;
     }
 
