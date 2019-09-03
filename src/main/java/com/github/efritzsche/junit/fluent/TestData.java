@@ -12,7 +12,7 @@ public class TestData {
 
     private String description;
     private Object target;
-    private Function<Object, Object> arrangeTarget;
+    private Function<Object, Object> targetTransform;
     private Method<Object, Object> method;
     private Class<? extends Throwable> expectedException;
     private Object expectedResult;
@@ -38,12 +38,12 @@ public class TestData {
         this.target = target;
     }
 
-    public Function<Object, Object> getArrangeTarget() {
-        return arrangeTarget;
+    public Function<Object, Object> getTargetTransform() {
+        return targetTransform;
     }
 
-    public void setArrangeTarget(Function<Object, Object> arrangeTarget) {
-        this.arrangeTarget = arrangeTarget;
+    public void setTargetTransform(Function<Object, Object> targetTransform) {
+        this.targetTransform = targetTransform;
     }
 
     public Method<Object, Object> getMethod() {

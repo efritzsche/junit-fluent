@@ -4,12 +4,12 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import com.github.efritzsche.junit.fluent.api.TestCreator;
-import com.github.efritzsche.junit.fluent.api.TestDataArrangeTarget;
 import com.github.efritzsche.junit.fluent.api.TestDataExpectedNoResult;
 import com.github.efritzsche.junit.fluent.api.TestDataExpectedResult;
 import com.github.efritzsche.junit.fluent.api.TestDataMethod;
 import com.github.efritzsche.junit.fluent.api.TestDataStaticMethod;
 import com.github.efritzsche.junit.fluent.api.TestDataTarget;
+import com.github.efritzsche.junit.fluent.api.TestDataTarget.TestDataMethodOrOptionalTargetSetup;
 import com.github.efritzsche.junit.fluent.method.Method;
 import com.github.efritzsche.junit.fluent.method.Method.Method1;
 import com.github.efritzsche.junit.fluent.method.Method.Method2;
@@ -34,7 +34,7 @@ import com.github.efritzsche.junit.fluent.method.VoidMethod.VoidMethod3;
  */
 class TestDataBuilder implements
         TestDataTarget,
-        TestDataArrangeTarget<Object>,
+        TestDataMethodOrOptionalTargetSetup<Object>,
         TestDataStaticMethod,
         TestDataExpectedNoResult,
         TestDataExpectedResult<Object>,
@@ -59,12 +59,12 @@ class TestDataBuilder implements
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> TestDataArrangeTarget<T> target(T target) {
+    public <T> TestDataMethodOrOptionalTargetSetup<T> target(T target) {
         if (target == null)
             throw new NullPointerException("target");
 
         data.setTarget(target);
-        return (TestDataArrangeTarget<T>) this;
+        return (TestDataMethodOrOptionalTargetSetup<T>) this;
     }
 
     @Override
@@ -77,20 +77,20 @@ class TestDataBuilder implements
     }
 
     @Override
-    public TestDataMethod<Object> prepareTarget(Consumer<Object> arrangeTarget) {
-        if (arrangeTarget == null)
-            throw new NullPointerException("arrangeTarget");
+    public TestDataMethod<Object> prepareTarget(Consumer<Object> prepare) {
+        if (prepare == null)
+            throw new NullPointerException("prepare");
 
-        data.setArrangeTarget(target -> {arrangeTarget.accept(target); return target;});
+        data.setTargetTransform(target -> {prepare.accept(target); return target;});
         return this;
     }
 
     @Override
-    public TestDataMethod<Object> replaceTarget(Function<Object, Object> arrangeTarget) {
-        if (arrangeTarget == null)
-            throw new NullPointerException("arrangeTarget");
+    public TestDataMethod<Object> transformTarget(Function<Object, Object> transform) {
+        if (transform == null)
+            throw new NullPointerException("transform");
 
-        data.setArrangeTarget(arrangeTarget);
+        data.setTargetTransform(transform);
         return this;
     }
 

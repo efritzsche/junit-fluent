@@ -54,7 +54,7 @@ public class SelfTest {
 
         .newTest("null check target replacement function")
             .target(TestBuilder.class)
-            .apply(() -> TestBuilder.newTest("test").target(new Object()).replaceTarget(null))
+            .apply(() -> TestBuilder.newTest("test").target(new Object()).transformTarget(null))
             .expectFailure(NullPointerException.class)
 
         .newTest("null check method")
