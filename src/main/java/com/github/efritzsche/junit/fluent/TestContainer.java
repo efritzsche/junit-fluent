@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DynamicContainer;
+import org.junit.jupiter.api.DynamicNode;
 import org.junit.jupiter.api.DynamicTest;
 
 /**
@@ -12,24 +14,34 @@ import org.junit.jupiter.api.DynamicTest;
  *
  * @see org.junit.jupiter.api.TestFactory TestFactory
  */
-public class TestContainer implements Iterable<DynamicTest> {
+public class TestContainer implements Iterable<DynamicNode> {
 
-    private final List<DynamicTest> dynamicTests;
+    private final List<DynamicNode> dynamicTests;
 
 
     TestContainer(List<TestData> tests) {
         dynamicTests = new ArrayList<>(tests.size());
 
+        addNodes(dynamicTests, tests);
+    }
+
+    private void addNodes(List<DynamicNode> nodes, List<TestData> tests) {
         for (TestData test : tests) {
-            dynamicTests.add(DynamicTest.dynamicTest(
-                    test.getDescription(),
-                    () -> executeTest(test)));
+            if (test.isParent()) {
+                List<DynamicNode> childNodes = new ArrayList<>();
+                addNodes(childNodes, test.getChildTests());
+                nodes.add(DynamicContainer.dynamicContainer(test.getDescription(), childNodes));
+            } else {
+                nodes.add(DynamicTest.dynamicTest(
+                        test.getDescription(),
+                        () -> executeTest(test)));
+            }
         }
     }
 
 
     @Override
-    public Iterator<DynamicTest> iterator() {
+    public Iterator<DynamicNode> iterator() {
         return dynamicTests.iterator();
     }
 

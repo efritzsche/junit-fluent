@@ -1,5 +1,7 @@
 package com.github.efritzsche.junit.fluent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -14,6 +16,9 @@ public class TestData {
     private String description;
     private Supplier<Object> targetSupplier;
     private Function<Object, Object> targetTransform;
+
+    private List<TestData> childTests;
+
     private Method<Object, Object> method;
     private Class<? extends Throwable> expectedException;
     private Object expectedResult;
@@ -45,6 +50,20 @@ public class TestData {
 
     public void setTargetTransform(Function<Object, Object> targetTransform) {
         this.targetTransform = targetTransform;
+    }
+
+    public boolean isParent() {
+        return childTests != null;
+    }
+
+    public List<TestData> getChildTests() {
+        return childTests;
+    }
+
+    public void addChildTest(TestData child) {
+        if (childTests == null)
+            childTests = new ArrayList<>();
+        childTests.add(child);
     }
 
     public Method<Object, Object> getMethod() {

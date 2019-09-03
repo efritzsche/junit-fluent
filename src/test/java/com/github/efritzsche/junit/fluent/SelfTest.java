@@ -3,7 +3,7 @@ package com.github.efritzsche.junit.fluent;
 import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.DynamicNode;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.TestInstance;
 
@@ -22,7 +22,7 @@ public class SelfTest {
                         .expectSuccess(hash -> {})
                     .build())
             .expectSuccess(container -> {
-                for (DynamicTest test : container) {
+                for (DynamicNode test : container) {
                     Assertions.assertEquals("test", test.getDisplayName());
                 }
             })
