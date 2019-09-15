@@ -10,7 +10,7 @@ import org.junit.jupiter.api.DynamicNode;
 import org.junit.jupiter.api.DynamicTest;
 
 /**
- * Container holding {@link DynamicTest dynamic tests} for JUnit 5.
+ * Container holding a {@link DynamicNode dynamic node tree} for JUnit 5.
  *
  * @see org.junit.jupiter.api.TestFactory TestFactory
  */
@@ -46,9 +46,11 @@ public class TestContainer implements Iterable<DynamicNode> {
     }
 
     private void executeTest(TestData data) {
-        Object target = data.getTargetTransform() != null
-                ? data.getTargetTransform().apply(data.getTargetSupplier().get())
-                : data.getTargetSupplier().get();
+        final Object target = Assertions.assertDoesNotThrow(
+                () -> data.getTargetTransform() != null
+                        ? data.getTargetTransform().transform(data.getTargetSupplier().get())
+                        : data.getTargetSupplier().get()
+        );
 
         if (data.getExpectedException() != null) {
             Assertions.assertThrows(

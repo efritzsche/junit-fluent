@@ -9,7 +9,9 @@ import com.github.efritzsche.junit.fluent.method.VoidMethod.VoidMethod1;
 import com.github.efritzsche.junit.fluent.method.VoidMethod.VoidMethod2;
 import com.github.efritzsche.junit.fluent.method.VoidMethod.VoidMethod3;
 
-public interface TestDataMethod<T> {
+public interface TestDataMethodOrChildTest<T> {
+
+    ChildTestDataOptionalTargetSetup<T> childTest(String description);
 
     /**
      * Method with no return value to call for testing. The test target is passed as the argument.

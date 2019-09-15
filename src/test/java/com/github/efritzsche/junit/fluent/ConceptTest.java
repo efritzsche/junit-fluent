@@ -29,15 +29,15 @@ public class ConceptTest {
     public TestContainer testSimpleMath() {
         return TestBuilder
                 .newTest("1 + 1 returns 2")
-                    .target(new SimpleMath())
+                    .target(SimpleMath::new)
                     .apply(SimpleMath::add, 1, 1)
                     .expectSuccess(2)
                 .newTest("2 / 2 returns 1")
-                    .target(new SimpleMath())
+                    .target(SimpleMath::new)
                     .apply(SimpleMath::div, 2, 2)
                     .expectSuccess(1)
                 .newTest("1 / 0 throws ArithmeticException")
-                    .target(new SimpleMath())
+                    .target(SimpleMath::new)
                     .apply(SimpleMath::div, 1, 0)
                     .expectFailure(ArithmeticException.class)
                 .build();
@@ -54,14 +54,23 @@ public class ConceptTest {
                         Assertions.assertEquals(0, math.getA());
                         Assertions.assertEquals(0, math.getB());
                     })
-                .newTest("1 + 1 returns 2")
-                    .target(new StateMath())
+                .newTest("Test addition")
+                    .target(StateMath::new)
                     .prepareTarget(math -> {
                         math.setA(1);
                         math.setB(1);
                     })
-                    .apply(StateMath::add)
-                    .expectSuccess(2)
+                    .childTest("1 + 1 returns 2")
+                        .apply(StateMath::add)
+                        .expectSuccess(2)
+                    .childTest("(-2) + 1 returns -1")
+                        .prepareTarget(math -> math.setA(-2))
+                        .apply(StateMath::add)
+                        .expectSuccess(-1)
+                    .childTest("1 + 3 returns 4")
+                        .prepareTarget(math -> math.setB(3))
+                        .apply(StateMath::add)
+                        .expectSuccess(4)
                 .build();
     }
 

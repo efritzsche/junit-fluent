@@ -1,15 +1,17 @@
 package com.github.efritzsche.junit.fluent.api;
 
+import com.github.efritzsche.junit.fluent.TestData.TargetSupplier;
+
 public interface TestDataTarget {
 
     /**
      * Configures the target object of the current test.
      *
-     * @param target target instance
+     * @param targetSupplier supplier of the target instance
      * @param <T> target type
-     * @return next step: further setup of target or method call
+     * @return next step: further setup of target, method call or child test setup
      */
-    <T> TestDataMethodOrOptionalTargetSetup<T> target(T target);
+    <T> TestDataOptionalTargetSetup<T> target(TargetSupplier<T> targetSupplier);
 
     /**
      * Configures the current test for testing of a static method.
@@ -19,8 +21,4 @@ public interface TestDataTarget {
      * @return next step: static method call
      */
     <T> TestDataStaticMethod target(Class<T> targetClass);
-
-
-    interface TestDataMethodOrOptionalTargetSetup<T>
-            extends TestDataMethod<T>, TestDataOptionalTargetSetup<T> {}
 }

@@ -2,6 +2,7 @@ package com.github.efritzsche.junit.fluent;
 
 import java.util.function.Consumer;
 
+import com.github.efritzsche.junit.fluent.TestData.TargetSupplier;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DynamicNode;
 import org.junit.jupiter.api.TestFactory;
@@ -17,7 +18,7 @@ public class SelfTest {
             .target(TestBuilder.class)
             .apply(() -> TestBuilder
                     .newTest("test")
-                        .target(new Object())
+                        .target(Object::new)
                         .apply(Object::hashCode)
                         .expectSuccess(hash -> {})
                     .build())
@@ -37,9 +38,9 @@ public class SelfTest {
             .apply(() -> TestBuilder.newTest(""))
             .expectFailure(IllegalArgumentException.class)
 
-        .newTest("null check target instance")
+        .newTest("null check target supplier")
             .target(TestBuilder.class)
-            .apply(() -> TestBuilder.newTest("test").target((Object) null))
+            .apply(() -> TestBuilder.newTest("test").target((TargetSupplier<Object>) null))
             .expectFailure(NullPointerException.class)
 
         .newTest("null check target class")
@@ -49,22 +50,22 @@ public class SelfTest {
 
         .newTest("null check target preparation function")
             .target(TestBuilder.class)
-            .apply(() -> TestBuilder.newTest("test").target(new Object()).prepareTarget(null))
+            .apply(() -> TestBuilder.newTest("test").target(Object::new).prepareTarget(null))
             .expectFailure(NullPointerException.class)
 
         .newTest("null check target replacement function")
             .target(TestBuilder.class)
-            .apply(() -> TestBuilder.newTest("test").target(new Object()).transformTarget(null))
+            .apply(() -> TestBuilder.newTest("test").target(Object::new).transformTarget(null))
             .expectFailure(NullPointerException.class)
 
         .newTest("null check method")
             .target(TestBuilder.class)
-            .apply(() -> TestBuilder.newTest("test").target(new Object()).apply(null))
+            .apply(() -> TestBuilder.newTest("test").target(Object::new).apply(null))
             .expectFailure(NullPointerException.class)
 
         .newTest("null check void method")
             .target(TestBuilder.class)
-            .apply(() -> TestBuilder.newTest("test").target(new Object()).applyVoid(null))
+            .apply(() -> TestBuilder.newTest("test").target(Object::new).applyVoid(null))
             .expectFailure(NullPointerException.class)
 
         .newTest("null check static method")

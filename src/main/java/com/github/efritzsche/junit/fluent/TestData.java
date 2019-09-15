@@ -3,8 +3,6 @@ package com.github.efritzsche.junit.fluent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 import com.github.efritzsche.junit.fluent.method.Method;
 
@@ -14,8 +12,8 @@ import com.github.efritzsche.junit.fluent.method.Method;
 public class TestData {
 
     private String description;
-    private Supplier<Object> targetSupplier;
-    private Function<Object, Object> targetTransform;
+    private TargetSupplier<Object> targetSupplier;
+    private TargetTransform<Object> targetTransform;
 
     private List<TestData> childTests;
 
@@ -36,19 +34,19 @@ public class TestData {
         this.description = description;
     }
 
-    public Supplier<Object> getTargetSupplier() {
+    public TargetSupplier<Object> getTargetSupplier() {
         return targetSupplier;
     }
 
-    public void setTargetSupplier(Supplier<Object> targetSupplier) {
+    public void setTargetSupplier(TargetSupplier<Object> targetSupplier) {
         this.targetSupplier = targetSupplier;
     }
 
-    public Function<Object, Object> getTargetTransform() {
+    public TargetTransform<Object> getTargetTransform() {
         return targetTransform;
     }
 
-    public void setTargetTransform(Function<Object, Object> targetTransform) {
+    public void setTargetTransform(TargetTransform<Object> targetTransform) {
         this.targetTransform = targetTransform;
     }
 
@@ -96,5 +94,22 @@ public class TestData {
 
     public void setAssertResult(Consumer<Object> assertResult) {
         this.assertResult = assertResult;
+    }
+
+
+    @FunctionalInterface
+    public interface TargetSupplier<T> {
+
+        T get() throws Throwable;
+    }
+
+    @FunctionalInterface
+    public interface TargetTransform<T> {
+
+        T transform(T target) throws Throwable;
+
+        default TargetTransform<T> then(TargetTransform<T> after) {
+            return (T t) -> after.transform(transform(t));
+        }
     }
 }

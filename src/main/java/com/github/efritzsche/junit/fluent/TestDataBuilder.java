@@ -1,15 +1,17 @@
 package com.github.efritzsche.junit.fluent;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
+import com.github.efritzsche.junit.fluent.TestData.TargetSupplier;
+import com.github.efritzsche.junit.fluent.TestData.TargetTransform;
+import com.github.efritzsche.junit.fluent.api.ChildTestDataOptionalTargetSetup;
 import com.github.efritzsche.junit.fluent.api.TestCreator;
 import com.github.efritzsche.junit.fluent.api.TestDataExpectedNoResult;
 import com.github.efritzsche.junit.fluent.api.TestDataExpectedResult;
-import com.github.efritzsche.junit.fluent.api.TestDataMethod;
+import com.github.efritzsche.junit.fluent.api.TestDataMethodOrChildTest;
+import com.github.efritzsche.junit.fluent.api.TestDataOptionalTargetSetup;
 import com.github.efritzsche.junit.fluent.api.TestDataStaticMethod;
 import com.github.efritzsche.junit.fluent.api.TestDataTarget;
-import com.github.efritzsche.junit.fluent.api.TestDataTarget.TestDataMethodOrOptionalTargetSetup;
 import com.github.efritzsche.junit.fluent.method.Method;
 import com.github.efritzsche.junit.fluent.method.Method.Method1;
 import com.github.efritzsche.junit.fluent.method.Method.Method2;
@@ -34,7 +36,7 @@ import com.github.efritzsche.junit.fluent.method.VoidMethod.VoidMethod3;
  */
 class TestDataBuilder implements
         TestDataTarget,
-        TestDataMethodOrOptionalTargetSetup<Object>,
+        TestDataOptionalTargetSetup<Object>,
         TestDataStaticMethod,
         TestDataExpectedNoResult,
         TestDataExpectedResult<Object>,
@@ -59,12 +61,12 @@ class TestDataBuilder implements
 
     @Override
     @SuppressWarnings("unchecked")
-    public <T> TestDataMethodOrOptionalTargetSetup<T> target(T target) {
-        if (target == null)
-            throw new NullPointerException("target");
+    public <T> TestDataOptionalTargetSetup<T> target(TargetSupplier<T> targetSupplier) {
+        if (targetSupplier == null)
+            throw new NullPointerException("targetSupplier");
 
-        data.setTargetSupplier(() -> target);
-        return (TestDataMethodOrOptionalTargetSetup<T>) this;
+        data.setTargetSupplier((TargetSupplier<Object>) targetSupplier);
+        return (TestDataOptionalTargetSetup<T>) this;
     }
 
     @Override
@@ -77,7 +79,7 @@ class TestDataBuilder implements
     }
 
     @Override
-    public TestDataMethod<Object> prepareTarget(Consumer<Object> prepare) {
+    public TestDataMethodOrChildTest<Object> prepareTarget(Consumer<Object> prepare) {
         if (prepare == null)
             throw new NullPointerException("prepare");
 
@@ -86,7 +88,7 @@ class TestDataBuilder implements
     }
 
     @Override
-    public TestDataMethod<Object> transformTarget(Function<Object, Object> transform) {
+    public TestDataMethodOrChildTest<Object> transformTarget(TargetTransform<Object> transform) {
         if (transform == null)
             throw new NullPointerException("transform");
 
@@ -166,6 +168,11 @@ class TestDataBuilder implements
     public TestDataTarget newTest(String description) {
         rootBuilder.addTest(data);
         return new TestDataBuilder(rootBuilder, description);
+    }
+
+    @Override
+    public ChildTestDataOptionalTargetSetup<Object> childTest(String description) {
+        return new ChildTestDataBuilder(this, data, description);
     }
 
     @Override
